@@ -17,9 +17,23 @@ class _TestChannelPageState extends State<TestChannelPage> {
   int _time = 0;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print('TestChannelPageState dispose');
+  }
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    print('TestChannelPageState deactivate');
+  }
+
+  @override
   void initState() {
     super.initState();
-    NativeTool.receiveMessage('time', _onEvent, onError: _onError);
+    print('TestChannelPageState initState');
+    // NativeTool.receiveMessage('time', _onEvent, onError: _onError);
   }
   void _onEvent(dynamic event) {
     print('TestChannelPageState Native message:${event.toString()}');

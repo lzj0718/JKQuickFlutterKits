@@ -38,17 +38,14 @@ class _JKAppState extends State<JKApp> {
   void _onEvent(dynamic event) {
     print('JKAppState Native message:${event.toString()}');
     Widget current;
-    switch (event.toString()) {
-      case "test_channel_page":
-        current = TestChannelPage();
-        break;
-      case "test_image_page":
-        current = TestImagePage();
-        break;
-      default:
-        current = PlaceholderPage();
+    String eventId = event.toString();
+    if (eventId.startsWith("test_channel_page")) {
+      current = TestChannelPage(key:Key(eventId));
+    }else if (eventId.startsWith("test_image_page")) {
+      current = TestImagePage(key:Key(eventId));
+    }else{
+      current = PlaceholderPage(key:Key(eventId));
     }
-
     setState(() {
       homeWidget = current;
     });

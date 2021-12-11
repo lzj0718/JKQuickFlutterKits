@@ -11,7 +11,7 @@ class TestImagePage extends StatelessWidget {
       child: Center(
         child:  Column(
           children:<Widget>[
-            Text('图片测试页面'),
+            Text('图片测试页面 By Jacky'),
           ],
         ),
       ),
