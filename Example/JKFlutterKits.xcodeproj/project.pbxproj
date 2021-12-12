@@ -171,6 +171,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
+				8DCA013F8050BCE196E45681 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,6 +279,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JKFlutterKits_Tests/Pods-JKFlutterKits_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8DCA013F8050BCE196E45681 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JKFlutterKits_Example/Pods-JKFlutterKits_Example-frameworks.sh",
+				"${PODS_ROOT}/../../JKFlutterKits/iOS/ios_frameworks/App.framework",
+				"${PODS_ROOT}/../../JKFlutterKits/iOS/ios_frameworks/Flutter.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/App.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JKFlutterKits_Example/Pods-JKFlutterKits_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C8E1DCBC6EA0C09D91CDDAB2 /* [CP] Check Pods Manifest.lock */ = {

@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'native_tool.dart';
 import 'dart:async';
+import 'package:dio/dio.dart';
 
 class TestChannelPage extends StatefulWidget {
 
@@ -54,6 +58,15 @@ class _TestChannelPageState extends State<TestChannelPage> {
       setState(() {
         _hitNum = hitNum;
       });
+    }
+    getHttp();
+  }
+  void getHttp() async {
+    try {
+      var response = await Dio().get('https://www.baidu.com');
+      print(response);
+    } catch (e) {
+      print(e);
     }
   }
 
