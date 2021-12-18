@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'native_tool.dart';
+import 'package:jk_f_module/util/helper_native.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
 

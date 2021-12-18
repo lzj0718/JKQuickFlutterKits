@@ -9,6 +9,9 @@ import 'package:jk_f_module/pages/page_tab_home.dart';
 import 'package:jk_f_module/pages/page_tab_message.dart';
 import 'package:jk_f_module/pages/page_tab_usercenter.dart';
 import 'package:jk_f_module/pages/page_register.dart';
+import 'package:jk_f_module/pages/page_tab_home.dart';
+import 'package:jk_f_module/pages/page_test_channel.dart';
+
 typedef _CallBack = void Function(dynamic result);
 
 class RouterUtil {
@@ -105,6 +108,8 @@ class RouteName {
   static String usercenter = '/usercenter';
   // 注册页面
   static String reg = '/reg';
+  // 测试消息通道
+  static String test_channel = '/test_channel';
 }
 
 // MARK 路由设置
@@ -120,20 +125,20 @@ class Routes {
         });
 
     // 注册路由
-    getRoutList().forEach((url, func) {
+    _getRoutList().forEach((url, func) {
       router.define(url, handler: Handler(handlerFunc: func));
     });
   }
 
   // MARK 路由列表
-  static Map getRoutList() {
+  static Map _getRoutList() {
     return {
       RouteName.root: (context, params) {
         return TabRootPage();
       },
       RouteName.home: (context, params) => TabHomePage(),
       RouteName.message: (context, params) => TabMessagePage(),
-      RouteName.usercenter: (context, params) => TabMessagePage(),
+      RouteName.usercenter: (context, params) => TabUserCenterPage(),
       RouteName.reg: (context, params) {
         Map param = RouterUtil.getRouterParams(params);
         return RegisterPage(
@@ -142,4 +147,22 @@ class Routes {
       },
     };
   }
+
+  //通过事件ID返回widget
+  static Widget? getWidgetByEventId(String eventId) {
+    Widget? current;
+    if (eventId.startsWith(RouteName.test_channel)) {
+      current = TestChannelPage(key:Key(eventId));
+    }else if (eventId.startsWith(RouteName.root)) {
+      current = TabRootPage(key:Key(eventId));
+    }else if (eventId.startsWith(RouteName.home)) {
+      current = TabHomePage(key:Key(eventId));
+    }else if (eventId.startsWith(RouteName.message)) {
+      current = TabMessagePage(key:Key(eventId));
+    }else if (eventId.startsWith(RouteName.usercenter)) {
+      current = TabUserCenterPage(key:Key(eventId));
+    }
+    return current;
+  }
+
 }

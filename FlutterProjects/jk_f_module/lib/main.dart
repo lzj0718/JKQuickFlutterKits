@@ -1,10 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'placeholder_page.dart';
-import 'test_channel_page.dart';
-import 'test_image_page.dart';
-import 'native_tool.dart';
+import 'package:jk_f_module/pages/page_placeholder.dart';
+import 'package:jk_f_module/util/helper_native.dart';
 import 'pages/page_tab_root.dart';
 import 'dart:io';
 import 'package:jk_f_module/util/helper_router.dart';
@@ -63,14 +61,7 @@ class _JKAppState extends State<JKApp> {
     print('JKAppState Native message:${event.toString()}');
     Widget current;
     String eventId = event.toString();
-    if (eventId.startsWith("test_channel_page")) {
-      current = TestChannelPage(key:Key(eventId));
-    }else if (eventId.startsWith("test_image_page")) {
-      current = TestImagePage(key:Key(eventId));
-    }else{
-      // current = PlaceholderPage(key:Key(eventId));
-      current = PlaceholderPage(key: Key(eventId));
-    }
+    current =  Routes.getWidgetByEventId(eventId) ?? PlaceholderPage(key: Key(eventId));
     setState(() {
       homeWidget = current;
     });

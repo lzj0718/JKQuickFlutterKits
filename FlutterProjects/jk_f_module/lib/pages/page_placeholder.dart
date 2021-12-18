@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'native_tool.dart';
+import 'package:jk_f_module/util/helper_native.dart';
 import 'package:jk_f_module/util/helper_router.dart';
 
 class PlaceholderPage extends StatelessWidget {
