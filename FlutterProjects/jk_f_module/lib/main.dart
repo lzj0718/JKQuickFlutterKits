@@ -11,7 +11,7 @@ import 'package:jk_f_module/util/helper_router.dart';
 
 void main() {
 
-  var defaultRouteName = window.defaultRouteName;
+  final String defaultRouteName = window.defaultRouteName;
   print("Flutter 初始化路由：$defaultRouteName");
 
   // if (Platform.isAndroid) {
@@ -32,6 +32,8 @@ class JKApp extends StatefulWidget {
 
 class _JKAppState extends State<JKApp> {
 
+
+
   //判断是否初始化过路由
   bool _isInitConfigRoutes = false;
 
@@ -44,10 +46,17 @@ class _JKAppState extends State<JKApp> {
   @override
   Widget build(BuildContext context) {
 
+    print("JKAppState build");
+
     if (!_isInitConfigRoutes) {
       _isInitConfigRoutes = true;
       // 配置路由
       Routes.configRoutes();
+    }
+    String defaultRouteName = window.defaultRouteName;
+    TargetPlatform platform = TargetPlatform.iOS;
+    if (defaultRouteName == "/android"){
+      platform = TargetPlatform.android;
     }
     return MaterialApp(
       //页面监听
@@ -58,9 +67,17 @@ class _JKAppState extends State<JKApp> {
       onGenerateRoute: FluroRouter.appRouter.generator,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        platform: platform,
       ),
       home: homeWidget,
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant JKApp oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    print("JKAppState didUpdateWidget");
   }
 
   @override

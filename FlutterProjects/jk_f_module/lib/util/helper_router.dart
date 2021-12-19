@@ -25,7 +25,7 @@ class RouterUtil {
       {Map? params,
         bool replace = false,
         bool clearStack = false,
-        TransitionType transType = TransitionType.inFromRight,
+        TransitionType transType = TransitionType.cupertino,
         _CallBack? block}) {
     //有参数
     if (params != null) {
