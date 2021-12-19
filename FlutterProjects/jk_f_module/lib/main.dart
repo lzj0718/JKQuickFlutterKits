@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +10,9 @@ import 'dart:io';
 import 'package:jk_f_module/util/helper_router.dart';
 
 void main() {
+
+  var defaultRouteName = window.defaultRouteName;
+  print("Flutter 初始化路由：$defaultRouteName");
 
   // if (Platform.isAndroid) {
   //   // 沉浸式状态栏
@@ -27,6 +32,9 @@ class JKApp extends StatefulWidget {
 
 class _JKAppState extends State<JKApp> {
 
+  //判断是否初始化过路由
+  bool _isInitConfigRoutes = false;
+
   //页面监听
   static final RouteObserver<PageRoute> routeObserver =
   RouteObserver<PageRoute>();
@@ -36,13 +44,17 @@ class _JKAppState extends State<JKApp> {
   @override
   Widget build(BuildContext context) {
 
-    // 配置路由
-    Routes.configRoutes();
-
+    if (!_isInitConfigRoutes) {
+      _isInitConfigRoutes = true;
+      // 配置路由
+      Routes.configRoutes();
+    }
     return MaterialApp(
+      //页面监听
+      navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // initialRoute: RouteName.root,
+      // initialRoute: RouteName.placeholder,
       onGenerateRoute: FluroRouter.appRouter.generator,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -61,7 +73,7 @@ class _JKAppState extends State<JKApp> {
     print('JKAppState Native message:${event.toString()}');
     Widget current;
     String eventId = event.toString();
-    current =  Routes.getWidgetByEventId(eventId) ?? PlaceholderPage(key: Key(eventId));
+    current =  Routes.getWidgetByEventId(eventId) ?? PlaceholderPage();
     setState(() {
       homeWidget = current;
     });

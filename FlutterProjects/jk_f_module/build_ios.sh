@@ -45,14 +45,14 @@ echo "复制framework库到临时文件夹: $out"
 
 libpath='../../JKFlutterKits/iOS'
 
-sudo rm -rf "$libpath/ios_frameworks"
-sudo mkdir "$libpath/ios_frameworks"
+rm -rf "$libpath/ios_frameworks"
+mkdir "$libpath/ios_frameworks"
 for file in $out/Release/*; 
 do 
     for subfile in $file/ios-arm64_armv7/*; 
     do
         case "$subfile" in
-	        *.framework ) sudo cp -r "$subfile" "$libpath/ios_frameworks";;
+	        *.framework ) cp -r "$subfile" "$libpath/ios_frameworks";;
         esac
         
     done

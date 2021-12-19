@@ -11,6 +11,8 @@ import 'package:jk_f_module/pages/page_tab_usercenter.dart';
 import 'package:jk_f_module/pages/page_register.dart';
 import 'package:jk_f_module/pages/page_tab_home.dart';
 import 'package:jk_f_module/pages/page_test_channel.dart';
+import 'package:jk_f_module/pages/page_placeholder.dart';
+import 'package:jk_f_module/util/helper_native.dart';
 
 typedef _CallBack = void Function(dynamic result);
 
@@ -45,18 +47,40 @@ class RouterUtil {
 
   // MARK 返回页面
   static pop(BuildContext context, {dynamic params, bool root = false}) {
-    //返回上一页
-    Navigator.maybePop(context, params);
+    //判断是否可以返回上一页，不能直接退到原生
+    if (canPop(context)) {
+      if (root){
+        //返回到导航顶层
+        popRoot(context);
+      }else{
+        //返回上一页
+        Navigator.maybePop(context, params);
+      }
+    }else{
+      //返回原生
+      popToNative(context);
+    }
+
   }
 
   // MARK 返回跟页面
   static popRoot(BuildContext context) {
-    Navigator.popUntil(context, ModalRoute.withName(RouteName.root));
+    if (canPop(context)) {
+      Navigator.popUntil(context, ModalRoute.withName(RouteName.root));
+    }else{
+      //返回原生
+      popToNative(context);
+    }
   }
 
   // MARK 是否可以返回
   static bool canPop(BuildContext context) {
     return Navigator.canPop(context);
+  }
+
+  // MARK 返回原生界面
+  static popToNative(BuildContext context,{Map<String,dynamic>? params}) {
+    NativeTool.postMessage("naviToBack", {"animate":"1","params":params ?? {}});
   }
 
   // MARK 处理入参
@@ -101,6 +125,8 @@ class RouteName {
   // 跟目录
   static String root = '/';
   // F主页
+  static String tarbar = '/tarbar';
+  // F主页
   static String home = '/home';
   // F消息
   static String message = '/message';
@@ -110,6 +136,9 @@ class RouteName {
   static String reg = '/reg';
   // 测试消息通道
   static String test_channel = '/test_channel';
+  // 测试消息通道
+  static String placeholder = '/placeholder';
+
 }
 
 // MARK 路由设置
@@ -145,7 +174,26 @@ class Routes {
           param: param,
         );
       },
+      RouteName.test_channel: (context, params) => TestChannelPage(),
+      RouteName.tarbar: (context, params) => TabRootPage(),
+      RouteName.placeholder: (context, params) => PlaceholderPage(),
     };
+  }
+  //通过事件ID返回RouteName
+  static String getRouteNameByEventId(String eventId) {
+    String current = RouteName.placeholder;
+    if (eventId.startsWith(RouteName.test_channel)) {
+      current = RouteName.test_channel;
+    }else if (eventId.startsWith(RouteName.tarbar)) {
+      current = RouteName.tarbar;
+    }else if (eventId.startsWith(RouteName.home)) {
+      current = RouteName.home;
+    }else if (eventId.startsWith(RouteName.message)) {
+      current = RouteName.message;
+    }else if (eventId.startsWith(RouteName.usercenter)) {
+      current = RouteName.usercenter;
+    }
+    return current;
   }
 
   //通过事件ID返回widget
@@ -153,7 +201,7 @@ class Routes {
     Widget? current;
     if (eventId.startsWith(RouteName.test_channel)) {
       current = TestChannelPage(key:Key(eventId));
-    }else if (eventId.startsWith(RouteName.root)) {
+    }else if (eventId.startsWith(RouteName.tarbar)) {
       current = TabRootPage(key:Key(eventId));
     }else if (eventId.startsWith(RouteName.home)) {
       current = TabHomePage(key:Key(eventId));
