@@ -25,6 +25,8 @@ class JKNavigator extends NavigatorObserver {
     print('JKNavigator DidPush Current：${route.settings.name} Previous:${previousName}');
     if (previousRoute == null) {
       RouterUtil.enableNativePopGestureRecognizer();
+    }else{
+      RouterUtil.disableNativePopGestureRecognizer();
     }
   }
 
