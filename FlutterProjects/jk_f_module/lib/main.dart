@@ -8,6 +8,7 @@ import 'package:jk_f_module/util/helper_native.dart';
 import 'pages/page_tab_root.dart';
 import 'dart:io';
 import 'package:jk_f_module/util/helper_router.dart';
+import 'package:jk_f_module/observer/observer_navigator.dart';
 
 void main() {
 
@@ -40,6 +41,8 @@ class _JKAppState extends State<JKApp> {
   //页面监听
   static final RouteObserver<PageRoute> routeObserver =
   RouteObserver<PageRoute>();
+  //自定义导航监听器
+  static final JKNavigator jkNavigator = JKNavigator();
 
   Widget homeWidget = PlaceholderPage();
 
@@ -60,7 +63,7 @@ class _JKAppState extends State<JKApp> {
     }
     return MaterialApp(
       //页面监听
-      navigatorObservers: [routeObserver],
+      navigatorObservers: [routeObserver,jkNavigator],
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       // initialRoute: RouteName.placeholder,

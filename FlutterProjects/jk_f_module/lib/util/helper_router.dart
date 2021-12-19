@@ -38,7 +38,7 @@ class RouterUtil {
       transition: transType,
       replace: replace,
       clearStack: clearStack,
-    )..then((value) {
+    ).then((value) {
       if (block != null) {
         block(value);
       }
@@ -46,16 +46,11 @@ class RouterUtil {
   }
 
   // MARK 返回页面
-  static pop(BuildContext context, {dynamic params, bool root = false}) {
+  static pop(BuildContext context, {dynamic params}) {
     //判断是否可以返回上一页，不能直接退到原生
     if (canPop(context)) {
-      if (root){
-        //返回到导航顶层
-        popRoot(context);
-      }else{
-        //返回上一页
-        Navigator.maybePop(context, params);
-      }
+      //返回上一页
+      Navigator.maybePop(context, params);
     }else{
       //返回原生
       popToNative(context);
@@ -80,7 +75,17 @@ class RouterUtil {
 
   // MARK 返回原生界面
   static popToNative(BuildContext context,{Map<String,dynamic>? params}) {
-    NativeTool.postMessage("naviToBack", {"animate":"1","params":params ?? {}});
+    NativeTool.postMessage("naviToBackNative", {"animate":"1","params":params ?? {}});
+  }
+
+  // MARK 开启原生导航右滑返回手势
+  static enableNativePopGestureRecognizer() {
+    NativeTool.postMessage("enablePopGestureRecognizer");
+  }
+
+  // MARK 屏蔽原生导航右滑返回手势
+  static disableNativePopGestureRecognizer() {
+    NativeTool.postMessage("disablePopGestureRecognizer");
   }
 
   // MARK 处理入参
