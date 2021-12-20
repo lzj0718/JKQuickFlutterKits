@@ -32,10 +32,10 @@ fi
 
 echo "编译flutter"
 # flutter build ios --release --no-codesign
-flutter build ios-framework --output=$out
+flutter build ios-framework --no-debug --no-profile --output=$out
 
 echo "编译flutter完成"
-mkdir $out
+#mkdir $out
 
 # cp -r build/ios/Release-iphoneos/*/*.framework $out
 # cp -r .ios/Flutter/App.framework $out
