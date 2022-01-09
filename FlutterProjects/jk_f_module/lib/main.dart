@@ -56,9 +56,9 @@ class _JKAppState extends State<JKApp> {
       // 配置路由
       Routes.configRoutes();
     }
-    String defaultRouteName = window.defaultRouteName;
+
     TargetPlatform platform = TargetPlatform.iOS;
-    if (defaultRouteName == "/android"){
+    if (Platform.isAndroid) {
       platform = TargetPlatform.android;
     }
     return MaterialApp(
